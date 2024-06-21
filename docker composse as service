@@ -1,0 +1,37 @@
+create systemctl service file
+
+```
+vim /etc/systemd/system/docker-odoo.service
+```
+
+
+file content is
+
+```
+[Unit]
+Description=Odoo container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker-compose -f <docker-compose-yml-file> start
+ExecStop=/usr/bin/docker-compose -f <docker-compose-yml-file> stop
+
+[Install]
+WantedBy=default.target
+
+```
+
+enable service
+
+```
+sudo systemctl enable docker-odoo.service
+```
+
+
+start service
+
+```
+systemctl start docker-odoo.service
+```
